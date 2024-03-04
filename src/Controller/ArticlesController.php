@@ -30,10 +30,16 @@ class ArticlesController extends AbstractController
     }
 
     #[Route('/article/{id}', name: 'app_get_article_by_id')]
-    public function getArticleById(): Response
+    public function getArticleById(
+        EntityManagerInterface $entityManager,
+        int $id): Response
     {
+        // pour récupérer le paramètre id en url, j'ai juste à le déclarer en argument de ma méthode
+
+        $article = $entityManager->getRepository(Article::class)->find($id);
+
         return $this->render('articles/show_article.html.twig', [
-            'controller_name' => 'ArticlesController',
+            'article' => $article,
         ]);
     }
 }
