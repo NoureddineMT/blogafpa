@@ -2,7 +2,12 @@
 
 {% block title %}Hello ContactController!{% endblock %}
 
+{% form_theme contactForm 'bootstrap_5_layout.html.twig' %}
+
 {% block body %}
     {# interpollation - traduire la valeur d'une variable dans une vue #}
-    {{muazu}}
+
+    {{ form(contactForm) }}
+
+
 {% endblock %}

@@ -1,12 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Hello HomeController!
+{% endblock %}
 
 {% block body %}
-    {{ fabrice }}
-    <ul>
-        {# Redirection avec la fonction twig path() #}
-        <li> <a href="{{ path('app_home') }}"> Home </a> </li>
-        <li> <a href="{{ path('app_contact') }}"> Contact </a> </li>
-    </ul>
+
+    {# charger mes catégories #}
+	<ul class="list-group">
+        {% for category in categories %}
+		    <li class="list-group-item"><a href="{{path('app_get_article_by_category', { id_category : category.id} )}}"> {{category.title}} </a></li>
+        {% endfor %}
+	</ul>
+
+	{{ fabrice }}
+	<ul>
+		{# Redirection avec la fonction twig path() #}
+		<li>
+			<a href="{{ path('app_home') }}"> Home </a>
+		</li>
+		<li>
+			<a href="{{ path('app_contact') }}">
+				Contact
+			</a>
+		</li>
+	</ul>
 {% endblock %}
