@@ -18,8 +18,10 @@
         {# d'avoir ma nav sur toutes mes pages #}
         {% include "nav.html.twig" %}
 
-        {% block body %}
-        
-        {% endblock %}
+        <div class="container-fluid pt-5">
+            {% block body %}
+            
+            {% endblock %}
+        </div>
     </body>
 </html>
