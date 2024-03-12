@@ -9,14 +9,10 @@
 	{# interpollation - traduire la valeur d'une variable dans une vue #}
 
 	{# je récupère en session les messages flash si j'en ai et j'itère à l'intérieur #}
-		<div class="row justify-content-center"> <div class="row col-md-8">
-			{% for message in app.flashes('success') %}
-				<div class="alert alert-success">
-					{{ message }}
-				</div>
-			{% endfor %}
-		</div>
-	</div>
+		{% include "flash.html.twig" %}
+		
+	
+	
 
 	{# afficher les erreurs du formulaire #}
 

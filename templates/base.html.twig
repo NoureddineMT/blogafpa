@@ -13,7 +13,7 @@
             {# {% block importmap %}{{ importmap('app') }}{% endblock %} #}
         {% endblock %}
     </head>
-    <body>
+    <body class="container-fluid">
 
         {# d'avoir ma nav sur toutes mes pages #}
         {% include "nav.html.twig" %}
@@ -23,5 +23,7 @@
             
             {% endblock %}
         </div>
+
+         {% include "footer.html.twig" %}
     </body>
 </html>
