@@ -20,7 +20,7 @@
 		<div class="row col-md-8">
             {# désactiver les validations html5 par défaut #}
 			{{ form_start(contactForm, { 'attr': {'class': 'row', 'novalidate': 'novalidate'} }) }}
-
+ {# { 'attr': {'class': 'row', 'novalidate': 'novalidate'} permet de désativer les messages d'erreur par défaut #}
             {# {{dump(form_errors(contactForm.firstName))}} #}
             
             {# {% if errors is not null  %}

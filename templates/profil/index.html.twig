@@ -5,8 +5,14 @@
 {% block body %}
 
       <li> Mail : {{ app.user.email}} </li>
+      <li> Nom : {{ app.user.name}} </li>
+      <li> Prénom : {{ app.user.firstname}} </li>
+      <li> Ville : {{ app.user.city}} </li>
+      {% for role in app.user.roles %}
+            <li> Rôle : {{ role}} </li>
+ {% endfor %}
    {# {{ dump(app.user)}} #}
 
-   <button href:"path() >Mot de passe oublié</button>
+   <a href={{path("app_reset_password")}} class="btn btn-lg btn-danger" >Modifier mot de passe</a>
         
 {% endblock %}
