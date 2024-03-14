@@ -38,7 +38,7 @@ class ContactController extends AbstractController
                 );
 
                 // rediriger vers une autre page
-                // return $this->redirectToRoute(/* ... */);
+                return $this->redirectToRoute('app_home');
             }
             // } else {
             //     $errors = $validator->validate($contact);

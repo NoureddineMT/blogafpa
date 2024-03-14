@@ -17,7 +17,17 @@ class ChangePasswordFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('plainPassword', RepeatedType::class, [
+        ->add('oldPassword', PasswordType::class, array(
+            'mapped' => false,
+            'label' => 'Ancien mot de passe',
+            'row_attr' => [
+                'class' => 'col-md-12 mb-3'
+            ],
+            'attr' => array(
+                'placeholder' => 'Ancien mot de passe'
+            )
+        ))
+            ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'options' => [
                     'attr' => [
@@ -30,10 +40,10 @@ class ChangePasswordFormType extends AbstractType
                             'message' => 'Please enter a password',
                         ]),
                         new Length([
-                            'min' => 12,
+                            'min' => 6,
                             'minMessage' => 'Your password should be at least {{ limit }} characters',
                             // max length allowed by Symfony for security reasons
-                            'max' => 4096,
+                            'max' => 20,
                         ]),
                         new PasswordStrength(),
                         new NotCompromisedPassword(),

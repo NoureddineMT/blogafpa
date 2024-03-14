@@ -54,7 +54,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('plainPassword',  RepeatedType::class, [
+            ->add('password',  RepeatedType::class, [
                 'type' =>PasswordType::class,
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
