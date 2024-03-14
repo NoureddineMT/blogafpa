@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ContactController!
+{% endblock %}
+
+{% form_theme profileForm 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+<div class="row col-md-10 mx-auto">
+{{ form_start(profileForm, { 'attr': {'class': 'row', 'novalidate': 'novalidate'} }) }}
+
+{{ form_row(profileForm.first_name, {'row_attr': {'class':'col-md-6'}})}}
+{{ form_row(profileForm.name, {'row_attr': {'class':'col-md-6'}})}}
+{{ form_row(profileForm.city, {'row_attr': {'class':'col-md-6'}})}}
+{{ form_row(profileForm.cp, {'row_attr': {'class':'col-md-6'}})}}
+{{ form_row(profileForm.email, {'row_attr': {'class':'col-md-6'}})}}
+{{ form_row(profileForm._token)}}
+
+
+<button  type="submit" class="btn btn-success mt-3 col-7 mx-auto"> Modifier profil</button>
+
+{{ form_end(profileForm, {render_rest:false})}}
+</div>
+
+{% endblock %}

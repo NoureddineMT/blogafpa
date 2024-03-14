@@ -1,0 +1,13 @@
+{# Voir documentation: https://symfony.com/doc/current/controller/error_pages.html #}
+
+{# {% extends 'base.html.twig' %} #}
+    {% include "nav.html.twig" %}
+
+{% block body %}
+    <h1>La page n'a pas été trouvée....</h1>
+
+    <p>
+        La page n'a pas été trouvée, vérifiez le chemin, erreur 500
+        <a href="{{ path('app_home') }}">return to the homepage</a>.
+    </p>
+{% endblock %}
