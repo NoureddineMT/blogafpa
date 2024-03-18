@@ -34,4 +34,32 @@ class HomeController extends AbstractController
 
         ]);
     }
+
+    #[Route('/search', name: 'app_search_articles', methods:['GET'])]
+    public function getArticleBySearch(
+        ArticleRepository $articleRepository,Request $request, PaginatorInterface $paginator ): Response
+    {
+        if($request->query->has("search")){
+            $search = strtolower($request->query->get("search"));
+            // dd($articles);
+
+            $articles = $paginator->paginate(
+                $articleRepository->findArticlesBySearch($search), /* query NOT result */
+                $request->query->getInt('page', 1), /*page number*/
+                2 /*limit per page*/
+            );
+            return $this->render('article/index.html.twig', [
+                'articles' => $articles,
+            ]);
+
+        }else{
+            return $this->redirectToRoute("app_article_index", [], Response::HTTP_SEE_OTHER);
+        }
+
+
+        
+    }
+
+
+
 }
