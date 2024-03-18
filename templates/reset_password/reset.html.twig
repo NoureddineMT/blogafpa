@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+	<div class="col-10 mx-auto border my-5">
 
 {% block title %}Reset your password{% endblock %}
 
@@ -8,5 +9,6 @@
     {{ form_start(resetForm) }}
         {{ form_row(resetForm.password) }}
         <button class="btn btn-primary">Reset password</button>
-    {{ form_end(resetForm) }}
+    {{ form_end(resetForm, {render_rest: false}) }}
 {% endblock %}
+</div>
