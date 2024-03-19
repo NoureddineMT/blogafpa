@@ -25,19 +25,29 @@
 				<p>
 					{{article.description}}
 				</p>
+
+
 				{% if app.user and 'ROLE_ADMIN' in app.user.getroles()  %}
 					<a class="btn btn-warning" href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
 					{{ include('article/_delete_form.html.twig') }}
 				{% endif %}
+
+
+				{% if app.user is not null  %}
+					<div class="flex-column">
+						{{ include('commentaire/index.html.twig') }}
+
+					</div>
 			</div>
+			{% endif %}
+
 		</div>
 	</a>
 
 
 	<div class="row justify-content-center">
 		{% if app.user and 'ROLE_ADMIN' in app.user.getroles()  %}
-		<a class="my-5 col-md-2 btn btn-success" href="{{ path('app_article_new') }}">Create new</a>
-			{% endif %}
+			<a class="my-5 col-md-2 btn btn-success" href="{{ path('app_article_new') }}">Create new</a>
+		{% endif %}
 	</div>
-
 </div>{% endblock %}

@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Commentaire;
 use App\Form\ArticleType;
+use App\Form\CommentaireType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,7 +35,7 @@ class ArticleController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
-            $this->addFlash('success','Votre article a bien été ajouté');
+            $this->addFlash('success', 'Votre article a bien été ajouté');
 
             return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -44,12 +46,27 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_article_show', methods: ['GET'])]
-    public function show(Article $article): Response
+    #[Route('/{id}', name: 'app_article_show', methods: ['GET','POST'])]
+    public function show(Article $article, Request $request, EntityManagerInterface $entityManager): Response
     {
-        
+
+        $comment = new Commentaire;
+        $form = $this->createForm(CommentaireType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setIdUser($this->getUser());
+            $comment->setIdArticle($article);
+            $comment->setDate(new \DateTime);
+            $comment->setVerifiedByAdmin(false);
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            $this->addFlash('success','Votre commentaire est en attente de validation par l\'administrateur');
+        }
         return $this->render('article/show.html.twig', [
             'article' => $article,
+            'commentForm' => $form
         ]);
     }
 
@@ -62,7 +79,7 @@ class ArticleController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            $this->addFlash('success','Votre article a bien été modifié');
+            $this->addFlash('success', 'Votre article a bien été modifié');
 
             return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -76,19 +93,19 @@ class ArticleController extends AbstractController
     #[Route('/{id}/delete', name: 'app_article_delete', methods: ['POST'])]
     public function delete(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $article->getId(), $request->request->get('_token'))) {
             $entityManager->remove($article);
             $entityManager->flush();
         }
-        $this->addFlash('success','Votre article a bien été supprimé');
+        $this->addFlash('success', 'Votre article a bien été supprimé');
         return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/category/{id_category}', name: 'app_get_article_by_category', methods:['GET'])]
+    #[Route('/category/{id_category}', name: 'app_get_article_by_category', methods: ['GET'])]
     public function getArticleByCategory(
         EntityManagerInterface $entityManager,
-        int $id_category): Response
-    {
+        int $id_category
+    ): Response {
         // pour récupérer le paramètre id en url, j'ai juste à le déclarer en argument de ma méthode
         $articles = $entityManager->getRepository(Article::class)->findBy(array('category' => $id_category));
 
@@ -96,10 +113,4 @@ class ArticleController extends AbstractController
             'articles' => $articles,
         ]);
     }
-
-    
-
-
-
-
 }
