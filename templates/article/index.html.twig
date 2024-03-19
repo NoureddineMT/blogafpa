@@ -15,9 +15,9 @@
 				<div class="d-flex article p-3">
 
 					{% if article.picture is empty %}
-						<img class="col-md-4" src="{{ asset('/build/images/default.jpg') }}" alt="{{article.title}}" title="{{article.title}}">
+						<img class="col-md-4" src="{{ asset('/uploads/articles/default.jpg') }}" alt="{{article.title}}" title="{{article.title}}">
 					{% else %}
-						<img class="col-md-4" src="{{ asset('/build/images/' ~ article.picture) }}" alt="{{article.title}}" title="{{article.title}}">
+						<img class="col-md-4" src="{{ asset('/uploads/articles/' ~ article.picture) }}" alt="{{article.title}}" title="{{article.title}}">
 					{% endif %}
 
 

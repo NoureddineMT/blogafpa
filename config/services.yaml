@@ -6,6 +6,7 @@
 parameters:
     locale: 'fr'
     app.mailAddress: '%env(MAIL_ADDRESS)%'
+    article_picture_directory: '%kernel.project_dir%/public/uploads/articles'
 services:
     # default configuration for services in *this* file
     _defaults:
