@@ -5,17 +5,23 @@
 {% block body %}
 	<div class="col-10 mx-auto border my-5">
 <h2> Vos informations: </h2>
-      <li> Mail : {{ app.user.email}} </li>
-      <li> Nom : {{ app.user.name}} </li>
-      <li> Prénom : {{ app.user.firstname}} </li>
-      <li> Ville : {{ app.user.city}} </li>
-      {% for role in app.user.roles %}
-            <li> Rôle : {{ role}} </li>
- {% endfor %}
-   {# {{ dump(app.user)}} #}
+<div class="card" style="width: 18rem;">
+<img src="{{ asset('uploads/avatars/' ~ app.user.avatar) }}" alt="Avatar" class="img-fluid card-img-top">
+  <div class="card-body">
+    <h5 class="card-title">Nom : {{ app.user.name}}</h5>
+    <p class="card-text">Prénom : {{ app.user.firstname}}</p>
+        <p class="card-text">Mail : {{ app.user.email}}</p>
 
-   <a href={{path("app_modify_password")}} class="btn btn-lg btn-danger" >Modifier Mots de passe</a>
+    <p class="card-text">Ville : {{ app.user.city}}</p>
+    <p class="card-text">{% for role in app.user.roles %}
+            <li> Rôle : {{ role}} </li>
+ {% endfor %}</p>
+    <a href={{path("app_modify_password")}} class="btn btn-lg btn-danger" >Modifier Mots de passe</a>
    <a href={{path("app_modify_info")}} class="btn btn-lg btn-warning" >Modifier informations</a>
       <a href={{path("app_delete_account")}} class="btn btn-lg btn-secondary" >Supprimer compte</a>
+  </div>
 </div>
+
+      
+
 {% endblock %}

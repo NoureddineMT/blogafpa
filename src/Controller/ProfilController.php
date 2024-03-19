@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\ChangePasswordFormType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Service\ImageService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\PasswordHasher\PasswordHasherExtension;
@@ -39,12 +40,16 @@ class ProfilController extends AbstractController
         }
 
     #[Route('/profil/modify_info', name: 'app_modify_info')]
-    public function modify(Request $request, EntityManagerInterface $entityManager): Response
+    public function modify(Request $request, EntityManagerInterface $entityManager, ImageService $imageService): Response
     {
         $user = $this->getUser();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+        
+        
         if ($form->isSubmitted() && $form->isValid()) {
+            $fileName =$imageService->copyImage("avatar", $this->getParameter("avatar_picture_directory"), $form);
+            $user->setAvatar($fileName);
             $entityManager->persist($user);
             $entityManager->flush();
             $this->addFlash('success', 'Votre profil a bien été modifié');

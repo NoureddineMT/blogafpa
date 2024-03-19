@@ -33,11 +33,11 @@ class Article
     private ?\DateTimeInterface $date = null;
 
     #[ORM\OneToMany(targetEntity: Commentaire::class, mappedBy: 'id_article', orphanRemoval: true)]
-    private Collection $id_comment;
+    private Collection $comments;
 
     public function __construct()
     {
-        $this->id_comment = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -108,24 +108,24 @@ class Article
     /**
      * @return Collection<int, Commentaire>
      */
-    public function getIdComment(): Collection
+    public function getComments(): Collection
     {
-        return $this->id_comment;
+        return $this->comments;
     }
 
-    public function addIdComment(Commentaire $idComment): static
+    public function addComment(Commentaire $idComment): static
     {
-        if (!$this->id_comment->contains($idComment)) {
-            $this->id_comment->add($idComment);
+        if (!$this->comments->contains($idComment)) {
+            $this->comments->add($idComment);
             $idComment->setIdArticle($this);
         }
 
         return $this;
     }
 
-    public function removeIdComment(Commentaire $idComment): static
+    public function removeComment(Commentaire $idComment): static
     {
-        if ($this->id_comment->removeElement($idComment)) {
+        if ($this->comments->removeElement($idComment)) {
             // set the owning side to null (unless already changed)
             if ($idComment->getIdArticle() === $this) {
                 $idComment->setIdArticle(null);

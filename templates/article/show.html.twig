@@ -25,7 +25,7 @@
 				<p>
 					{{article.description}}
 				</p>
-
+			
 
 				{% if app.user and 'ROLE_ADMIN' in app.user.getroles()  %}
 					<a class="btn btn-warning" href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
@@ -42,7 +42,19 @@
 			{% endif %}
 
 		</div>
-	</a>
+	
+
+<div class="card-footer">
+    <h3>Commentaires</h3>
+   
+        <ul>
+            {% for comment in article.comments %}
+                <li>{{ comment.date|date('Y-m-d H:i:s') }}</li>
+                <p>{{ comment.comment }}</p>
+            {% endfor %}
+        </ul>
+  
+</div>
 
 
 	<div class="row justify-content-center">

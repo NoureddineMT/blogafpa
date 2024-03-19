@@ -51,11 +51,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $cp = null;
 
     #[ORM\OneToMany(targetEntity: Commentaire::class, mappedBy: 'id_user', orphanRemoval: true)]
-    private Collection $id_comment;
+    private Collection $comments;
 
     public function __construct()
     {
-        $this->id_comment = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -198,13 +198,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getIdComment(): Collection
     {
-        return $this->id_comment;
+        return $this->comments;
     }
 
     public function addIdComment(Commentaire $idComment): static
     {
-        if (!$this->id_comment->contains($idComment)) {
-            $this->id_comment->add($idComment);
+        if (!$this->comments->contains($idComment)) {
+            $this->comments->add($idComment);
             $idComment->setIdUser($this);
         }
 
@@ -213,7 +213,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeIdComment(Commentaire $idComment): static
     {
-        if ($this->id_comment->removeElement($idComment)) {
+        if ($this->comments->removeElement($idComment)) {
             // set the owning side to null (unless already changed)
             if ($idComment->getIdUser() === $this) {
                 $idComment->setIdUser(null);
