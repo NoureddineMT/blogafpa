@@ -1,4 +1,16 @@
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+<div class="col-6"
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+{{ form_row(form.title)}}
+{{ form_row(form.description)}}
+{{ form_row(form.category)}}
+{{ form_row(form.picture)}}
+    {% if article.picture %}
+    <div>
+    <img src="{{ asset('uploads/articles/' ~ article.picture)}}" alt="Imzge actuelle" style="max-width: 200px">
+    </div>
+    {% endif %}
+    <button class="btn btn-success">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
+</div>
