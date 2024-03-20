@@ -49,7 +49,7 @@
    
         <ul>
             {% for comment in article.comments %}
-                <li>{{ comment.date|date('Y-m-d H:i:s') }}</li>
+                <li>{{ comment.date|date('Y-m-d H:i:s') }} - {{comment.IdUser}}</li>
                 <p>{{ comment.comment }}</p>
             {% endfor %}
         </ul>

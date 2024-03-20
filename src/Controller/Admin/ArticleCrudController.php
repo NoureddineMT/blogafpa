@@ -36,8 +36,8 @@ class ArticleCrudController extends AbstractCrudController
             ImageField::new('picture')->setUploadDir('public/uploads/articles')
             ->setBasePath('uploads/articles')
             ->setUploadedFileNamePattern('[slug]-[contenthash].[extension]')
-            ->setRequired(false)
-            ->hideWhenUpdating(),
+            ->setRequired(false),
+            // ->hideWhenUpdating(),
             AssociationField::new('category'),
             DateField::new('date'),
         ];

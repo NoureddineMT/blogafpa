@@ -10,6 +10,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -34,6 +35,23 @@ class HomeController extends AbstractController
 
         ]);
     }
+
+    #[Route('/{filter}', name: 'app_home_filter')]
+    public function getArticleByFilter(ArticleRepository $articleRepository,
+     CategoryRepository $categoryRepository,
+      PaginatorInterface $paginator,
+       Request $request,
+       string $filter): Response
+    {
+
+       $articles = $articleRepository->findArticleByFilter($filter);
+
+        
+            return new JsonResponse($articles);
+       
+    }
+
+
 
     #[Route('/search', name: 'app_search_articles', methods:['GET'])]
     public function getArticleBySearch(

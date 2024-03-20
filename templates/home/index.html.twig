@@ -17,6 +17,17 @@
 		</div>
 		<div class="col-8 border">
 
+<form>
+<select id="filter" name="filter" class="form-select">
+<option value="asc"> Par date croissante </option>
+<option value="desc"> Par date décroissante </option>
+{# <option value="comments"> Articles les plus commentés </option> #}
+</select>
+</form>
+
+
+
+
 			{% for article in articles %}
 				{# {{dump(article)}} #}
 				<a href="{{ path('app_article_show', {id : article.id })}}">

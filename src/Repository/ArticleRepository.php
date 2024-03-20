@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Mapping\OrderBy;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -58,4 +59,18 @@ class ArticleRepository extends ServiceEntityRepository
 
     }
 
+
+
+    
+    public function findArticleByFilter($filter) : array
+    {
+
+        return $this->createQueryBuilder('a')
+            ->orderBy("date : filter")
+            ->setParameter('filter', $filter) // rappel dans la requete sql, les % permettent de remplacer des caratères
+            ->getQuery()
+            ->getResult()
+        ;
+
+    }
 }
