@@ -16,11 +16,11 @@ class Commentaire
 
     #[ORM\ManyToOne(inversedBy: 'id_comment')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?article $id_article = null;
+    private ?Article $id_article = null;
 
     #[ORM\ManyToOne(inversedBy: 'id_comment')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $id_user = null;
+    private ?User $id_user = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $comment = null;

@@ -36,18 +36,32 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/{filter}', name: 'app_home_filter')]
+    #[Route('/filter/{filter}', name: 'app_home_filter')]
     public function getArticleByFilter(ArticleRepository $articleRepository,
      CategoryRepository $categoryRepository,
       PaginatorInterface $paginator,
        Request $request,
        string $filter): Response
     {
+        $articlesData = [];
+        foreach($articleRepository->findArticleByFilter($filter) as $article){
+            $articleData = [
+                'id' => $article->getId(),
+                'title' => $article->getTitle(),
+                'description' => $article->getDescription(),
+                'picture' => $article->getPicture(),
+                'date' => $article->getDate()->format('Y-m-d'),
+                'category_id' => $article->getCategory() ? $article->getCategory()->getId() : null,
+                'category_name' => $article->getCategory() ? $article->getCategory()->getTitle() : null,
 
-       $articles = $articleRepository->findArticleByFilter($filter);
+
+            ];
+            $articlesData[] = $articleData;
+        }
+
 
         
-            return new JsonResponse($articles);
+            return new JsonResponse($articlesData);
        
     }
 
