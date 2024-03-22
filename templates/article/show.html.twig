@@ -25,7 +25,7 @@
 				<p>
 					{{article.description}}
 				</p>
-			
+
 
 				{% if app.user and 'ROLE_ADMIN' in app.user.getroles()  %}
 					<a class="btn btn-warning" href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
@@ -38,28 +38,31 @@
 						{{ include('commentaire/index.html.twig') }}
 
 					</div>
-			</div>
+				</div>
 			{% endif %}
 
 		</div>
-	
-
-<div class="card-footer">
-    <h3>Commentaires</h3>
-   
-        <ul>
-            {% for comment in article.comments %}
-                <li>{{ comment.date|date('Y-m-d H:i:s') }} - {{comment.IdUser}}</li>
-                <p>{{ comment.comment }}</p>
-            {% endfor %}
-        </ul>
-  
-</div>
 
 
-	<div class="row justify-content-center">
-		{% if app.user and 'ROLE_ADMIN' in app.user.getroles()  %}
-			<a class="my-5 col-md-2 btn btn-success" href="{{ path('app_article_new') }}">Create new</a>
-		{% endif %}
+		<div class="card-footer">
+			<h3>Commentaires</h3>
+
+			<ul>
+				{% for comment in article.comments %}
+					<li>{{ comment.date|date('Y-m-d H:i:s') }}
+						-
+						{{comment.IdUser}}</li>
+					<p>{{ comment.comment }}</p>
+				{% endfor %}
+			</ul>
+
+		</div>
+
+
+		<div class="row justify-content-center">
+			{% if app.user and 'ROLE_ADMIN' in app.user.getroles()  %}
+				<a class="my-5 col-md-2 btn btn-success" href="{{ path('app_article_new') }}">Create new</a>
+			{% endif %}
+		</div>
 	</div>
-</div>{% endblock %}
+{% endblock %}

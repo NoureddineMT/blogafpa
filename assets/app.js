@@ -28,7 +28,7 @@ $(document).ready(function () {
 
       try {
         // Construit l'URL avec le filtre
-        const url = `/${filter}`;
+        const url = `/filter/${filter}`;
 
         // Exécute la requête asynchrone
         const response = await fetch(url, {  // attente de la réponse
